@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StudentService implements StudentServiceImpl {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     @Override
     public List<StudentDTO> getAllStudentDTO() {
@@ -29,7 +29,7 @@ public class StudentService implements StudentServiceImpl {
 
     @Override
     public StudentDTO getStudentByIdDTO(StudentId studentId) {
-        Student student = studentRepository.findById(studentId.getId()).orElse(null);
+        Student student = studentRepository.findById(studentId).orElse(null);
         return (student != null) ?
                 new StudentDTO(
                         student.getName(),
@@ -40,6 +40,7 @@ public class StudentService implements StudentServiceImpl {
     @Override
     public void createStudentDTO(StudentDTO studentDTO) {
         Student student = new Student();
+        student.setStudentId(studentDTO.getStudentId());
         student.setName(studentDTO.getName());
         studentRepository.save(student);
 
@@ -47,7 +48,7 @@ public class StudentService implements StudentServiceImpl {
 
     @Override
     public void updateStudentDTO(StudentId studentId, StudentDTO updatedStudentDTO) {
-        Student existingStudent = studentRepository.findById(studentId.getId()).orElse(null);
+        Student existingStudent = studentRepository.findById(studentId).orElse(null);
         if (existingStudent != null) {
             existingStudent.setName(updatedStudentDTO.getName());
             studentRepository.save(existingStudent);
@@ -56,7 +57,7 @@ public class StudentService implements StudentServiceImpl {
 
     @Override
     public void deleteStudentDTO(StudentId studentId) {
-        studentRepository.deleteById(studentId.getId());
+        studentRepository.deleteById(studentId);
 
     }
 }

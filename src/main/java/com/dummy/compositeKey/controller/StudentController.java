@@ -2,7 +2,6 @@ package com.dummy.compositeKey.controller;
 
 
 import com.dummy.compositeKey.dto.StudentDTO;
-import com.dummy.compositeKey.entity.Student;
 import com.dummy.compositeKey.entity.StudentId;
 import com.dummy.compositeKey.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +33,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createStudentDTO(StudentDTO studentDTO) {
+    public ResponseEntity<Void> createStudentDTO(@RequestBody StudentDTO studentDTO) {
         studentService.createStudentDTO(studentDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
 

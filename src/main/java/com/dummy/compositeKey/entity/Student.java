@@ -14,8 +14,11 @@ import lombok.NoArgsConstructor;
 public class Student {
 
     @EmbeddedId
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private StudentId studentId;
     private String name;
+
+
 
 
 }
